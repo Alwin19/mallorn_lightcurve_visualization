@@ -45,14 +45,19 @@ index = st.slider("Select object index", 0, len(class_data) - 1, 0)
 # -----------------------------
 object_id = class_data.index[index]
 obj = dataset.get_object(object_id=object_id)
+# Extract metadata safely
+metadata = obj.metadata
+class_type = metadata.get("true_class", "Unknown")
+host_specz = metadata.get("host_specz", "N/A")  # Redshift field
+object_name = metadata.get("object_id", object_id)
 
-# Create a fresh figure and axis
+st.markdown(
+    f"### Class: **{class_type}**"
+)
+
+st.markdown(f"Object: **{object_name}**     /    Host Specz (z): **{host_specz}**")
+
 fig, ax = plt.subplots(figsize=(10, 6))  # optional: set size
-
-# Pass the axis to your plot method
 fig = obj.plot_light_curve(show_gp=True, uncertainties=True, ax=ax)
 
-# Display in Streamlit
 st.pyplot(fig)
-
-st.caption(f"Object ID: {object_id} | Class: {selected_class or 'All'}")
