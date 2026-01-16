@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # -----------------------------
 # CONFIGURATION
 # -----------------------------
-settings["data_directory"] = "./data"
+settings["data_directory"] = "./data/deextincted/"
 
 @st.cache_resource
 def load_dataset():
